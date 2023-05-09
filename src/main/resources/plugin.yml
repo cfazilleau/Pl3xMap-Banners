@@ -1,13 +1,15 @@
-name: Pl3xMap-Banners
-version: ${project.version}
-main: dev.granny.pl3xmapbanners.BannersPlugin
-api-version: 1.16
-authors: [ BillyGalbreath, granny ]
-description: Banners addon for Pl3xMap
+name: "${name}"
+main: "${group}.Pl3xMapBanners"
+version: "${version}"
+api-version: "1.19"
+load: "POSTWORLD"
+authors: ${authors}
+description: "${description}"
+website: "${website}"
 softdepend:
   - Pl3xMap
 
 permissions:
   pl3xmap.banners.admin:
-    description: Allow controlling the plugin
+    description: Gives access to add/remove banners by clicking
     default: op

@@ -1,7 +1,35 @@
+<div align="center">
+
 # Pl3xMap-Banners
 
-Pl3xMap-Banners is an addon to Pl3xMap that allows players to display their banners the same way you can see banners on the vanilla map. Players with the `pl3xmap.banners.admin` permission need to right-click with an open map in their main hand on a placed banner to make it visible. Left-clicking will make the banner disappear from the map. 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/BillyGalbreath/Pl3xMap-Banners/build.yml?event=push&logo=travis)](https://github.com/BillyGalbreath/Pl3xMap-Banners/actions)
+[![Join us on Discord](https://img.shields.io/discord/944144133054931025.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/nhGzEkwXQX)
+[![MIT License](https://img.shields.io/github/license/BillyGalbreath/Pl3xMap-Banners?&logo=github)](LICENSE)
+<br>
 
-[Pl3xMap-Signs](https://github.com/pl3xgaming/Pl3xMap-Signs) was used as a template for this addon.
+<big>***A Pl3xMap addon that shows banners on the map.***</big>
 
-Grab the working build from https://github.com/granny/Pl3xMap-Banners/releases/latest
+</div>
+
+## Downloads
+
+Downloads are available on Modrinth.
+
+[![Download on Modrinth](https://i.imgur.com/5C4fVJC.png)](https://modrinth.com/mod/pl3xmap-banners)
+
+## Installation
+
+1) Place the jar inside your server's `plugins` folder
+2) Restart your server
+3) Edit the config(s) to your liking
+4) Restart server again
+
+## Building from source
+
+To build this project just run the following command:
+
+```
+./gradlew build
+```
+
+The compiled jar will be in `build/libs/`
