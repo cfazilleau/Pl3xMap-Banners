@@ -30,6 +30,7 @@ import net.pl3x.map.banners.markers.Icon;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.event.EventHandler;
 import net.pl3x.map.core.event.EventListener;
+import net.pl3x.map.core.event.server.Pl3xMapEnabledEvent;
 import net.pl3x.map.core.event.server.ServerLoadedEvent;
 import net.pl3x.map.core.event.world.WorldLoadedEvent;
 import net.pl3x.map.core.event.world.WorldUnloadedEvent;
@@ -60,9 +61,14 @@ public class WorldListener implements EventListener, Listener {
     }
 
     @EventHandler
+    public void onPl3xMapEnabled(@NonNull Pl3xMapEnabledEvent event) {
+        Icon.register();
+    }
+
+    @EventHandler
     public void onServerLoaded(@NonNull ServerLoadedEvent event) {
+        Icon.register();
         Pl3xMap.api().getWorldRegistry().forEach(this::registerWorld);
-        Icon.saveGimpSrc();
     }
 
     @EventHandler

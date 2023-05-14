@@ -36,25 +36,11 @@ public enum Icon {
     BLACK, BLUE, BROWN, CYAN, GREEN, GREY, LIGHT_BLUE, LIGHT_GREY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, YELLOW, WHITE;
 
     private final String key;
+    private final String type;
 
     Icon() {
-        Pl3xMapBanners plugin = Pl3xMapBanners.getPlugin(Pl3xMapBanners.class);
-
-        String bannerType = name().toLowerCase(Locale.ROOT);
-
-        this.key = String.format("pl3xmap_%s_banner", bannerType);
-        String bannerFilename = String.format("icons%s%s.png", File.separator, bannerType);
-        File bannerFile = new File(plugin.getDataFolder(), bannerFilename);
-        if (!bannerFile.exists()) {
-            plugin.saveResource(bannerFilename, false);
-        }
-
-        try {
-            Pl3xMap.api().getIconRegistry().register(new IconImage(this.key, ImageIO.read(bannerFile), "png"));
-        } catch (IOException e) {
-            plugin.getLogger().warning("Failed to register icon (" + bannerType + ") " + bannerFilename);
-            e.printStackTrace();
-        }
+        this.type = name().toLowerCase(Locale.ROOT);
+        this.key = String.format("pl3xmap_%s_banner", this.type);
     }
 
     public String getKey() {
@@ -89,5 +75,22 @@ public enum Icon {
             case YELLOW_BANNER, YELLOW_WALL_BANNER -> YELLOW;
             default -> WHITE;
         };
+    }
+
+    public static void register() {
+        Pl3xMapBanners plugin = Pl3xMapBanners.getPlugin(Pl3xMapBanners.class);
+        for (Icon icon : values()) {
+            String bannerFilename = String.format("icons%s%s.png", File.separator, icon.type);
+            File bannerFile = new File(plugin.getDataFolder(), bannerFilename);
+            if (!bannerFile.exists()) {
+                plugin.saveResource(bannerFilename, false);
+            }
+            try {
+                Pl3xMap.api().getIconRegistry().register(new IconImage(icon.key, ImageIO.read(bannerFile), "png"));
+            } catch (IOException e) {
+                plugin.getLogger().warning("Failed to register icon (" + icon.type + ") " + bannerFilename);
+                e.printStackTrace();
+            }
+        }
     }
 }

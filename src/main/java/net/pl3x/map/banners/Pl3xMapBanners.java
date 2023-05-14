@@ -3,6 +3,7 @@ package net.pl3x.map.banners;
 import net.pl3x.map.banners.listener.BannerListener;
 import net.pl3x.map.banners.listener.WorldListener;
 import net.pl3x.map.banners.markers.BannersLayer;
+import net.pl3x.map.banners.markers.Icon;
 import net.pl3x.map.core.Pl3xMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,6 +15,8 @@ public final class Pl3xMapBanners extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        Icon.saveGimpSrc();
 
         getServer().getPluginManager().registerEvents(new BannerListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
