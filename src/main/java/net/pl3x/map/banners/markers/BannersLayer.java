@@ -35,12 +35,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-import libs.org.checkerframework.checker.nullness.qual.NonNull;
 import net.pl3x.map.banners.configuration.WorldConfig;
 import net.pl3x.map.core.markers.layer.WorldLayer;
 import net.pl3x.map.core.markers.marker.Icon;
 import net.pl3x.map.core.markers.marker.Marker;
 import net.pl3x.map.core.markers.option.Options;
+import org.jetbrains.annotations.NotNull;
 
 public class BannersLayer extends WorldLayer {
     public static final String KEY = "pl3xmap_banners";
@@ -51,7 +51,7 @@ public class BannersLayer extends WorldLayer {
     private final Map<Position, Marker<?>> markers = new ConcurrentHashMap<>();
     private final Map<Position, Banner> banners = new ConcurrentHashMap<>();
 
-    public BannersLayer(@NonNull WorldConfig config) {
+    public BannersLayer(@NotNull WorldConfig config) {
         super(KEY, config.getWorld(), () -> config.LAYER_LABEL);
         this.config = config;
         this.dataFile = getWorld().getTilesDirectory().resolve("banners.dat");
@@ -67,19 +67,19 @@ public class BannersLayer extends WorldLayer {
     }
 
     @Override
-    public @NonNull Collection<@NonNull Marker<@NonNull ?>> getMarkers() {
+    public @NotNull Collection<Marker<?>> getMarkers() {
         return this.markers.values();
     }
 
-    public Collection<Banner> getBanners() {
+    public @NotNull Collection<Banner> getBanners() {
         return Collections.unmodifiableCollection(this.banners.values());
     }
 
-    public void putBanner(Banner banner) {
+    public void putBanner(@NotNull Banner banner) {
         putBanner(banner, true);
     }
 
-    public void putBanner(Banner banner, boolean saveData) {
+    public void putBanner(@NotNull Banner banner, boolean saveData) {
         String key = String.format("%s_%s_%d_%d", KEY, getWorld().getName(), banner.pos().x(), banner.pos().z());
         Icon icon = Marker.icon(key, banner.pos().toPoint(), banner.icon().getKey(), this.config.ICON_SIZE)
                 .setAnchor(this.config.ICON_ANCHOR)
@@ -125,7 +125,7 @@ public class BannersLayer extends WorldLayer {
         }
     }
 
-    public void removeBanner(Position pos) {
+    public void removeBanner(@NotNull Position pos) {
         this.markers.remove(pos);
         this.banners.remove(pos);
         saveData();

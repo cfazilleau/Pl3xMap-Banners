@@ -27,17 +27,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
 
 public record Banner(Position pos, Icon icon, String name) {
-    public boolean isBanner(World world) {
+    public boolean isBanner(@NotNull World world) {
         return world.getBlockAt(pos().x(), pos().y(), pos().z()).getState() instanceof org.bukkit.block.Banner;
     }
 
-    public static Banner load(DataInputStream in) throws IOException {
+    public static @NotNull Banner load(@NotNull DataInputStream in) throws IOException {
         return new Banner(Position.load(in), Icon.valueOf(in.readUTF()), in.readUTF());
     }
 
-    public void save(DataOutputStream out) throws IOException {
+    public void save(@NotNull DataOutputStream out) throws IOException {
         pos().save(out);
         out.writeUTF(icon().name());
         out.writeUTF(name());

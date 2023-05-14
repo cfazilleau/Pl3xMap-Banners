@@ -48,10 +48,12 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class BannerListener implements Listener {
     @EventHandler
-    public void onClickBanner(PlayerInteractEvent event) {
+    public void onClickBanner(@NotNull PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
         if (block == null) {
             // no block was clicked; ignore
@@ -85,46 +87,46 @@ public class BannerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockDropItemEvent event) {
+    public void onBannerBreak(@NotNull BlockDropItemEvent event) {
         tryRemoveBanner(event.getBlockState());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockDestroyEvent event) {
+    public void onBannerBreak(@NotNull BlockDestroyEvent event) {
         tryRemoveBanner(event.getBlock().getState());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockBurnEvent event) {
+    public void onBannerBreak(@NotNull BlockBurnEvent event) {
         tryRemoveBanner(event.getBlock().getState());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockExplodeEvent event) {
+    public void onBannerBreak(@NotNull BlockExplodeEvent event) {
         event.blockList().forEach(block -> tryRemoveBanner(block.getState()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(EntityExplodeEvent event) {
+    public void onBannerBreak(@NotNull EntityExplodeEvent event) {
         event.blockList().forEach(block -> tryRemoveBanner(block.getState()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockPistonExtendEvent event) {
+    public void onBannerBreak(@NotNull BlockPistonExtendEvent event) {
         event.getBlocks().forEach(block -> tryRemoveBanner(block.getState()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockPistonRetractEvent event) {
+    public void onBannerBreak(@NotNull BlockPistonRetractEvent event) {
         event.getBlocks().forEach(block -> tryRemoveBanner(block.getState()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(BlockFromToEvent event) {
+    public void onBannerBreak(@NotNull BlockFromToEvent event) {
         tryRemoveBanner(event.getToBlock().getState());
     }
 
-    private void tryAddBanner(BlockState state) {
+    private void tryAddBanner(@NotNull BlockState state) {
         if (state instanceof org.bukkit.block.Banner banner) {
             Location loc = banner.getLocation();
             Position pos = new Position(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
@@ -133,7 +135,7 @@ public class BannerListener implements Listener {
     }
 
     @SuppressWarnings("deprecation")
-    private void tryAddBanner(org.bukkit.block.Banner banner, Position pos) {
+    private void tryAddBanner(@NotNull org.bukkit.block.Banner banner, Position pos) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
             // world has no banners layer; ignore
@@ -152,13 +154,13 @@ public class BannerListener implements Listener {
         particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_PLAYER_LEVELUP);
     }
 
-    private void tryRemoveBanner(BlockState state) {
+    private void tryRemoveBanner(@NotNull BlockState state) {
         if (state instanceof org.bukkit.block.Banner banner) {
             tryRemoveBanner(banner);
         }
     }
 
-    private void tryRemoveBanner(org.bukkit.block.Banner banner) {
+    private void tryRemoveBanner(@NotNull org.bukkit.block.Banner banner) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
             // world has no banners layer; ignore
@@ -174,7 +176,7 @@ public class BannerListener implements Listener {
         particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_GHAST_HURT);
     }
 
-    private BannersLayer getLayer(BlockState state) {
+    private @Nullable BannersLayer getLayer(@NotNull BlockState state) {
         World world = Pl3xMap.api().getWorldRegistry().get(state.getWorld().getName());
         if (world == null || !world.isEnabled()) {
             // world is missing or not enabled; ignore
@@ -183,7 +185,7 @@ public class BannerListener implements Listener {
         return (BannersLayer) world.getLayerRegistry().get(BannersLayer.KEY);
     }
 
-    private void particles(Location loc, Particle particle, Sound sound) {
+    private void particles(@NotNull Location loc, @NotNull Particle particle, @NotNull Sound sound) {
         loc.getWorld().playSound(loc, sound, 1.0F, 1.0F);
         ThreadLocalRandom rand = ThreadLocalRandom.current();
         for (int i = 0; i < 20; ++i) {

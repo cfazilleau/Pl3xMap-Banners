@@ -23,7 +23,6 @@
  */
 package net.pl3x.map.banners.listener;
 
-import libs.org.checkerframework.checker.nullness.qual.NonNull;
 import net.pl3x.map.banners.configuration.WorldConfig;
 import net.pl3x.map.banners.markers.BannersLayer;
 import net.pl3x.map.banners.markers.Icon;
@@ -40,6 +39,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class WorldListener implements EventListener, Listener {
     public WorldListener() {
@@ -47,7 +47,7 @@ public class WorldListener implements EventListener, Listener {
     }
 
     @org.bukkit.event.EventHandler(priority = EventPriority.MONITOR)
-    public void onChunkLoad(ChunkLoadEvent event) {
+    public void onChunkLoad(@NotNull ChunkLoadEvent event) {
         if (event.isNewChunk()) {
             // chunk is new; ignore
             return;
@@ -56,39 +56,39 @@ public class WorldListener implements EventListener, Listener {
     }
 
     @org.bukkit.event.EventHandler(priority = EventPriority.MONITOR)
-    public void onChunkUnload(ChunkUnloadEvent event) {
+    public void onChunkUnload(@NotNull ChunkUnloadEvent event) {
         checkChunk(event.getChunk());
     }
 
     @EventHandler
-    public void onPl3xMapEnabled(@NonNull Pl3xMapEnabledEvent event) {
+    public void onPl3xMapEnabled(@NotNull Pl3xMapEnabledEvent event) {
         Icon.register();
     }
 
     @EventHandler
-    public void onServerLoaded(@NonNull ServerLoadedEvent event) {
+    public void onServerLoaded(@NotNull ServerLoadedEvent event) {
         Icon.register();
         Pl3xMap.api().getWorldRegistry().forEach(this::registerWorld);
     }
 
     @EventHandler
-    public void onWorldLoaded(@NonNull WorldLoadedEvent event) {
+    public void onWorldLoaded(@NotNull WorldLoadedEvent event) {
         registerWorld(event.getWorld());
     }
 
     @EventHandler
-    public void onWorldUnloaded(@NonNull WorldUnloadedEvent event) {
+    public void onWorldUnloaded(@NotNull WorldUnloadedEvent event) {
         try {
             event.getWorld().getLayerRegistry().unregister(BannersLayer.KEY);
         } catch (Throwable ignore) {
         }
     }
 
-    private void registerWorld(@NonNull World world) {
+    private void registerWorld(@NotNull World world) {
         world.getLayerRegistry().register(new BannersLayer(new WorldConfig(world)));
     }
 
-    private void checkChunk(Chunk chunk) {
+    private void checkChunk(@NotNull Chunk chunk) {
         org.bukkit.World bukkitWorld = chunk.getWorld();
 
         World world = Pl3xMap.api().getWorldRegistry().get(bukkitWorld.getName());

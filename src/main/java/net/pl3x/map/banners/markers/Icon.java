@@ -31,6 +31,7 @@ import net.pl3x.map.banners.Pl3xMapBanners;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.image.IconImage;
 import org.bukkit.Material;
+import org.jetbrains.annotations.NotNull;
 
 public enum Icon {
     BLACK, BLUE, BROWN, CYAN, GREEN, GREY, LIGHT_BLUE, LIGHT_GREY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, YELLOW, WHITE;
@@ -43,7 +44,7 @@ public enum Icon {
         this.key = String.format("pl3xmap_%s_banner", this.type);
     }
 
-    public String getKey() {
+    public @NotNull String getKey() {
         return this.key;
     }
 
@@ -56,7 +57,7 @@ public enum Icon {
         }
     }
 
-    public static Icon get(Material type) {
+    public static @NotNull Icon get(@NotNull Material type) {
         return switch (type) {
             case BLACK_BANNER, BLACK_WALL_BANNER -> BLACK;
             case BLUE_BANNER, BLUE_WALL_BANNER -> BLUE;
