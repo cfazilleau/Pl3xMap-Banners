@@ -23,7 +23,6 @@
  */
 package net.pl3x.map.banners.listener;
 
-import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import java.util.concurrent.ThreadLocalRandom;
 import net.pl3x.map.banners.markers.Banner;
 import net.pl3x.map.banners.markers.BannersLayer;
@@ -92,11 +91,6 @@ public class BannerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBannerBreak(@NotNull BlockDestroyEvent event) {
-        tryRemoveBanner(event.getBlock().getState());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBannerBreak(@NotNull BlockBurnEvent event) {
         tryRemoveBanner(event.getBlock().getState());
     }
@@ -126,7 +120,7 @@ public class BannerListener implements Listener {
         tryRemoveBanner(event.getToBlock().getState());
     }
 
-    private void tryAddBanner(@NotNull BlockState state) {
+    protected void tryAddBanner(@NotNull BlockState state) {
         if (state instanceof org.bukkit.block.Banner banner) {
             Location loc = banner.getLocation();
             Position pos = new Position(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
@@ -135,7 +129,7 @@ public class BannerListener implements Listener {
     }
 
     @SuppressWarnings("deprecation")
-    private void tryAddBanner(@NotNull org.bukkit.block.Banner banner, Position pos) {
+    protected void tryAddBanner(@NotNull org.bukkit.block.Banner banner, Position pos) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
             // world has no banners layer; ignore
@@ -154,13 +148,13 @@ public class BannerListener implements Listener {
         particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_PLAYER_LEVELUP);
     }
 
-    private void tryRemoveBanner(@NotNull BlockState state) {
+    protected void tryRemoveBanner(@NotNull BlockState state) {
         if (state instanceof org.bukkit.block.Banner banner) {
             tryRemoveBanner(banner);
         }
     }
 
-    private void tryRemoveBanner(@NotNull org.bukkit.block.Banner banner) {
+    protected void tryRemoveBanner(@NotNull org.bukkit.block.Banner banner) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
             // world has no banners layer; ignore
@@ -176,7 +170,7 @@ public class BannerListener implements Listener {
         particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_GHAST_HURT);
     }
 
-    private @Nullable BannersLayer getLayer(@NotNull BlockState state) {
+    protected @Nullable BannersLayer getLayer(@NotNull BlockState state) {
         World world = Pl3xMap.api().getWorldRegistry().get(state.getWorld().getName());
         if (world == null || !world.isEnabled()) {
             // world is missing or not enabled; ignore
@@ -185,7 +179,7 @@ public class BannerListener implements Listener {
         return (BannersLayer) world.getLayerRegistry().get(BannersLayer.KEY);
     }
 
-    private void particles(@NotNull Location loc, @NotNull Particle particle, @NotNull Sound sound) {
+    protected void particles(@NotNull Location loc, @NotNull Particle particle, @NotNull Sound sound) {
         loc.getWorld().playSound(loc, sound, 1.0F, 1.0F);
         ThreadLocalRandom rand = ThreadLocalRandom.current();
         for (int i = 0; i < 20; ++i) {

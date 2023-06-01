@@ -24,6 +24,7 @@
 package net.pl3x.map.banners;
 
 import net.pl3x.map.banners.listener.BannerListener;
+import net.pl3x.map.banners.listener.PaperBannerListener;
 import net.pl3x.map.banners.listener.WorldListener;
 import net.pl3x.map.banners.markers.BannersLayer;
 import net.pl3x.map.banners.markers.Icon;
@@ -41,7 +42,15 @@ public final class Pl3xMapBanners extends JavaPlugin {
 
         Icon.saveGimpSrc();
 
-        getServer().getPluginManager().registerEvents(new BannerListener(), this);
+        BannerListener bannerListener;
+        try {
+            Class.forName("io.papermc.paper.configuration.PaperConfigurations");
+            bannerListener = new PaperBannerListener();
+        } catch (ClassNotFoundException e) {
+            bannerListener = new BannerListener();
+        }
+
+        getServer().getPluginManager().registerEvents(bannerListener, this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
     }
 
