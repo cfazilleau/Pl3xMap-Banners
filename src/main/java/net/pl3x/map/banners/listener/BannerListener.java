@@ -23,7 +23,9 @@
  */
 package net.pl3x.map.banners.listener;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.ThreadLocalRandom;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.pl3x.map.banners.markers.Banner;
 import net.pl3x.map.banners.markers.BannersLayer;
 import net.pl3x.map.banners.markers.Icon;
@@ -36,6 +38,8 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.craftbukkit.v1_20_R1.block.CraftBlockEntityState;
+import org.bukkit.craftbukkit.v1_20_R1.util.CraftChatMessage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -142,7 +146,7 @@ public class BannerListener implements Listener {
             return;
         }
 
-        layer.putBanner(new Banner(pos, icon, banner.getCustomName()));
+        layer.putBanner(new Banner(pos, icon, getCustomName(banner)));
 
         // play fancy particles as visualizer
         particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_PLAYER_LEVELUP);
@@ -168,6 +172,17 @@ public class BannerListener implements Listener {
 
         // play fancy particles as visualizer
         particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_GHAST_HURT);
+    }
+
+    protected String getCustomName(org.bukkit.block.Banner banner) {
+        try {
+            Method method = CraftBlockEntityState.class.getDeclaredMethod("getTileEntity");
+            method.setAccessible(true);
+            BannerBlockEntity nms = (BannerBlockEntity) method.invoke(banner);
+            return nms.hasCustomName() ? CraftChatMessage.fromComponent(nms.getCustomName()) : "";
+        } catch (Throwable t) {
+            return "";
+        }
     }
 
     protected @Nullable BannersLayer getLayer(@NotNull BlockState state) {

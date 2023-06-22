@@ -2,6 +2,7 @@ import com.modrinth.minotaur.TaskModrinthUpload
 
 plugins {
     id 'java'
+    id 'io.papermc.paperweight.userdev' version "1.5.5"
     id 'com.modrinth.minotaur' version '2.+'
 }
 
@@ -26,10 +27,23 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:$bukkitVersion") {
-        exclude group: 'org.yaml', module: 'snakeyaml'
-    }
+    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:$bukkitVersion")
     compileOnly "maven.modrinth:pl3xmap:$pl3xmapVersion"
+}
+
+base {
+    archivesName = "${rootProject.name}-${project.name}"
+}
+
+assemble {
+    dependsOn reobfJar
+    doLast {
+        delete fileTree("$buildDir").include('**/*-dev*.jar')
+    }
+}
+
+reobfJar {
+    outputJar = file("$buildDir/libs/${rootProject.name}-${project.version}.jar")
 }
 
 compileJava {

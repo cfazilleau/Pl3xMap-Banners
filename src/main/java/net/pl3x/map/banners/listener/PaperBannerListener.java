@@ -10,4 +10,9 @@ public class PaperBannerListener extends BannerListener {
     public void onBannerBreak(@NotNull BlockDestroyEvent event) {
         tryRemoveBanner(event.getBlock().getState());
     }
+
+    @Override
+    protected String getCustomName(org.bukkit.block.Banner banner) {
+        return banner.getCustomName();
+    }
 }
