@@ -168,10 +168,13 @@ public class BannerListener implements Listener {
         Location loc = banner.getLocation();
         Position pos = new Position(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
 
-        layer.removeBanner(pos);
-
-        // play fancy particles as visualizer
-        particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_ALLAY_ITEM_TAKEN);
+        // check if the banner is displayed to avoid triggering effects if it is not
+        if (layer.hasBanner(pos)) {
+            layer.removeBanner(pos);
+            
+            // play fancy particles as visualizer
+            particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_ALLAY_ITEM_TAKEN);
+        }
     }
 
     protected String getCustomName(org.bukkit.block.Banner banner) {
