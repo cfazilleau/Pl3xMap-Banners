@@ -149,7 +149,7 @@ public class BannerListener implements Listener {
         layer.putBanner(new Banner(pos, icon, getCustomName(banner)));
 
         // play fancy particles as visualizer
-        particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_PLAYER_LEVELUP);
+        particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_ALLAY_ITEM_GIVEN);
     }
 
     protected void tryRemoveBanner(@NotNull BlockState state) {
@@ -173,7 +173,7 @@ public class BannerListener implements Listener {
             layer.removeBanner(pos);
             
             // play fancy particles as visualizer
-            particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_GHAST_HURT);
+        	particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_ALLAY_ITEM_TAKEN);
         }
     }
 

@@ -12,4 +12,4 @@ softdepend:
 permissions:
   pl3xmap.banners.admin:
     description: Gives access to add/remove banners by clicking
-    default: op
+    default: true
