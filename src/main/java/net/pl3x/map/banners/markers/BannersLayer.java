@@ -125,10 +125,12 @@ public class BannersLayer extends WorldLayer {
         }
     }
 
-    public void removeBanner(@NotNull Position pos) {
-        this.markers.remove(pos);
-        this.banners.remove(pos);
-        saveData();
+    public boolean removeBanner(@NotNull Position pos) {
+        if (this.markers.remove(pos) != null | this.banners.remove(pos) != null) {
+            saveData();
+            return true;
+        }
+        return false;
     }
 
     private void loadData() {
