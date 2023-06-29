@@ -132,7 +132,6 @@ public class BannerListener implements Listener {
         }
     }
 
-    @SuppressWarnings("deprecation")
     protected void tryAddBanner(@NotNull org.bukkit.block.Banner banner, Position pos) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
@@ -140,7 +139,7 @@ public class BannerListener implements Listener {
             return;
         }
 
-        Icon icon = Icon.get(banner.getType());
+        Icon icon = Icon.get(banner.getBaseColor());
         if (icon == null) {
             // material is not a registered banner; ignore
             return;

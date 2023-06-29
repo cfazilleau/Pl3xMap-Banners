@@ -12,6 +12,7 @@ public class PaperBannerListener extends BannerListener {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected String getCustomName(org.bukkit.block.Banner banner) {
         return banner.getCustomName();
     }
