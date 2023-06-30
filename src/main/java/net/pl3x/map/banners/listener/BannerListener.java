@@ -132,7 +132,6 @@ public class BannerListener implements Listener {
         }
     }
 
-    @SuppressWarnings("deprecation")
     protected void tryAddBanner(@NotNull org.bukkit.block.Banner banner, Position pos) {
         BannersLayer layer = getLayer(banner);
         if (layer == null) {
@@ -140,7 +139,7 @@ public class BannerListener implements Listener {
             return;
         }
 
-        Icon icon = Icon.get(banner.getType());
+        Icon icon = Icon.get(banner.getBaseColor());
         if (icon == null) {
             // material is not a registered banner; ignore
             return;
@@ -149,7 +148,7 @@ public class BannerListener implements Listener {
         layer.putBanner(new Banner(pos, icon, getCustomName(banner)));
 
         // play fancy particles as visualizer
-        particles(banner.getLocation(), Particle.VILLAGER_HAPPY, Sound.ENTITY_ALLAY_ITEM_GIVEN);
+        particles(banner.getLocation(), layer.getConfig().BANNER_ADD_PARTICLES, layer.getConfig().BANNER_ADD_SOUND);
     }
 
     protected void tryRemoveBanner(@NotNull BlockState state) {
@@ -168,12 +167,9 @@ public class BannerListener implements Listener {
         Location loc = banner.getLocation();
         Position pos = new Position(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
 
-        // check if the banner is displayed to avoid triggering effects if it is not
-        if (layer.hasBanner(pos)) {
-            layer.removeBanner(pos);
-            
+        if (layer.removeBanner(pos)) {
             // play fancy particles as visualizer
-        	particles(banner.getLocation(), Particle.WAX_ON, Sound.ENTITY_ALLAY_ITEM_TAKEN);
+            particles(banner.getLocation(), layer.getConfig().BANNER_REMOVE_PARTICLES, layer.getConfig().BANNER_REMOVE_SOUND);
         }
     }
 
