@@ -25,13 +25,17 @@ package net.pl3x.map.banners.markers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import net.pl3x.map.banners.Pl3xMapBanners;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.image.IconImage;
-import org.bukkit.Material;
+import org.bukkit.DyeColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public enum Icon {
     BLACK, BLUE, BROWN, CYAN, GREEN, GREY, LIGHT_BLUE, LIGHT_GREY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, YELLOW, WHITE;
@@ -57,25 +61,16 @@ public enum Icon {
         }
     }
 
-    public static @NotNull Icon get(@NotNull Material type) {
-        return switch (type) {
-            case BLACK_BANNER, BLACK_WALL_BANNER -> BLACK;
-            case BLUE_BANNER, BLUE_WALL_BANNER -> BLUE;
-            case BROWN_BANNER, BROWN_WALL_BANNER -> BROWN;
-            case CYAN_BANNER, CYAN_WALL_BANNER -> CYAN;
-            case GREEN_BANNER, GREEN_WALL_BANNER -> GREEN;
-            case GRAY_BANNER, GRAY_WALL_BANNER -> GREY;
-            case LIGHT_BLUE_BANNER, LIGHT_BLUE_WALL_BANNER -> LIGHT_BLUE;
-            case LIGHT_GRAY_BANNER, LIGHT_GRAY_WALL_BANNER -> LIGHT_GREY;
-            case LIME_BANNER, LIME_WALL_BANNER -> LIME;
-            case MAGENTA_BANNER, MAGENTA_WALL_BANNER -> MAGENTA;
-            case ORANGE_BANNER, ORANGE_WALL_BANNER -> ORANGE;
-            case PINK_BANNER, PINK_WALL_BANNER -> PINK;
-            case PURPLE_BANNER, PURPLE_WALL_BANNER -> PURPLE;
-            case RED_BANNER, RED_WALL_BANNER -> RED;
-            case YELLOW_BANNER, YELLOW_WALL_BANNER -> YELLOW;
-            default -> WHITE;
-        };
+    private static final Map<String, Icon> BY_NAME = new HashMap<>();
+    private static final Map<DyeColor, Icon> BY_COLOR = new HashMap<>();
+
+    static {
+        Arrays.stream(values()).forEach(icon -> BY_NAME.put(icon.name(), icon));
+        Arrays.stream(DyeColor.values()).forEach(color -> BY_COLOR.put(color, BY_NAME.get(color.name())));
+    }
+
+    public static @Nullable Icon get(@NotNull DyeColor color) {
+        return BY_COLOR.get(color);
     }
 
     public static void register() {

@@ -33,6 +33,8 @@ import net.pl3x.map.core.markers.Point;
 import net.pl3x.map.core.markers.Vector;
 import net.pl3x.map.core.markers.option.Tooltip;
 import net.pl3x.map.core.world.World;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -204,6 +206,27 @@ public class WorldConfig extends AbstractConfig {
             Set it if you want to override the default behavior of the
             popup closing when user clicks on the map. Defaults to true.""")
     public Boolean ICON_POPUP_SHOULD_CLOSE_ON_CLICK = null;
+
+    @Key("banner.add.particles")
+    @Comment("""
+            The particles to play when a banner is added to Pl3xMap.
+            https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html""")
+    public Particle BANNER_ADD_PARTICLES = Particle.VILLAGER_HAPPY;
+    @Key("banner.add.sound")
+    @Comment("""
+            The sound to play when a banner is added to Pl3xMap.
+            https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html""")
+    public Sound BANNER_ADD_SOUND = Sound.ENTITY_PLAYER_LEVELUP;
+    @Key("banner.remove.particles")
+    @Comment("""
+            The particles to play when a banner is removed from Pl3xMap.
+            https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html""")
+    public Particle BANNER_REMOVE_PARTICLES = Particle.WAX_ON;
+    @Key("banner.remove.sound")
+    @Comment("""
+            The sound to play when a banner is removed from Pl3xMap.
+            https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html""")
+    public Sound BANNER_REMOVE_SOUND = Sound.ENTITY_GHAST_HURT;
 
     private final World world;
 

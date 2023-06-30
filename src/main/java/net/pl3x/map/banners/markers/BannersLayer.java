@@ -66,6 +66,10 @@ public class BannersLayer extends WorldLayer {
         loadData();
     }
 
+    public WorldConfig getConfig() {
+        return this.config;
+    }
+
     @Override
     public @NotNull Collection<Marker<?>> getMarkers() {
         return this.markers.values();
@@ -125,10 +129,12 @@ public class BannersLayer extends WorldLayer {
         }
     }
 
-    public void removeBanner(@NotNull Position pos) {
-        this.markers.remove(pos);
-        this.banners.remove(pos);
-        saveData();
+    public boolean removeBanner(@NotNull Position pos) {
+        if (this.markers.remove(pos) != null | this.banners.remove(pos) != null) {
+            saveData();
+            return true;
+        }
+        return false;
     }
 
     public boolean hasBanner(@NotNull Position pos) {
