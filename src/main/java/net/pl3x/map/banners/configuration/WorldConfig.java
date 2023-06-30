@@ -216,7 +216,7 @@ public class WorldConfig extends AbstractConfig {
     @Comment("""
             The sound to play when a banner is added to Pl3xMap.
             https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html""")
-    public Sound BANNER_ADD_SOUND = Sound.ENTITY_PLAYER_LEVELUP;
+    public Sound BANNER_ADD_SOUND = Sound.ENTITY_ALLAY_ITEM_GIVEN;
     @Key("banner.remove.particles")
     @Comment("""
             The particles to play when a banner is removed from Pl3xMap.
@@ -226,7 +226,7 @@ public class WorldConfig extends AbstractConfig {
     @Comment("""
             The sound to play when a banner is removed from Pl3xMap.
             https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html""")
-    public Sound BANNER_REMOVE_SOUND = Sound.ENTITY_GHAST_HURT;
+    public Sound BANNER_REMOVE_SOUND = Sound.ENTITY_ALLAY_ITEM_TAKEN;
 
     private final World world;
 
