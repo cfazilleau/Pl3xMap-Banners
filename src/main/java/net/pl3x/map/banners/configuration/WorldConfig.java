@@ -298,6 +298,22 @@ public class WorldConfig extends AbstractConfig {
                 break;
             case "marker.tooltip.direction":
                 return Tooltip.Direction.valueOf(String.valueOf(value).toUpperCase(Locale.ROOT));
+            case "banner.add.particles":
+            case "banner.remove.particles":
+                try {
+                    return Particle.valueOf(value.toString().toUpperCase(Locale.ROOT));
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
+            case "banner.add.sound":
+            case "banner.remove.sound":
+                try {
+                    return Sound.valueOf(value.toString().toUpperCase(Locale.ROOT));
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
         }
         return super.get(path);
     }
@@ -310,6 +326,8 @@ public class WorldConfig extends AbstractConfig {
             value = Map.of("x", vector.x(), "z", vector.z());
         } else if (value instanceof Tooltip.Direction direction) {
             value = direction.name();
+        } else if (value instanceof Enum<?> enumeration) {
+            value = enumeration.name();
         }
         getConfig().set(path, value);
     }
