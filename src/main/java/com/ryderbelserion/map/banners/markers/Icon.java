@@ -21,19 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.markers;
+package com.ryderbelserion.map.banners.markers;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
-import net.pl3x.map.banners.Pl3xMapBanners;
+import com.ryderbelserion.map.banners.Pl3xMapBanners;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.image.IconImage;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
 public enum Icon {
+
     BLACK, BLUE, BROWN, CYAN, GREEN, GREY, LIGHT_BLUE, LIGHT_GREY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, YELLOW, WHITE;
 
     private final String key;
@@ -83,14 +85,15 @@ public enum Icon {
         for (Icon icon : values()) {
             String bannerFilename = String.format("icons%s%s.png", File.separator, icon.type);
             File bannerFile = new File(plugin.getDataFolder(), bannerFilename);
+
             if (!bannerFile.exists()) {
                 plugin.saveResource(bannerFilename, false);
             }
+
             try {
                 Pl3xMap.api().getIconRegistry().register(new IconImage(icon.key, ImageIO.read(bannerFile), "png"));
             } catch (IOException e) {
-                plugin.getLogger().warning("Failed to register icon (" + icon.type + ") " + bannerFilename);
-                e.printStackTrace();
+                plugin.getLogger().log(Level.WARNING,"Failed to register icon (" + icon.type + ") " + bannerFilename, e);
             }
         }
     }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.markers;
+package com.ryderbelserion.map.banners.markers;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-import net.pl3x.map.banners.configuration.WorldConfig;
+import com.ryderbelserion.map.banners.configuration.WorldConfig;
 import net.pl3x.map.core.markers.layer.WorldLayer;
 import net.pl3x.map.core.markers.marker.Icon;
 import net.pl3x.map.core.markers.marker.Marker;
@@ -43,6 +43,7 @@ import net.pl3x.map.core.markers.option.Options;
 import org.jetbrains.annotations.NotNull;
 
 public class BannersLayer extends WorldLayer {
+
     public static final String KEY = "pl3xmap_banners";
 
     private final Path dataFile;
@@ -88,8 +89,10 @@ public class BannersLayer extends WorldLayer {
                 .setShadow(this.config.ICON_SHADOW)
                 .setShadowSize(this.config.ICON_SHADOW_SIZE)
                 .setShadowAnchor(this.config.ICON_SHADOW_ANCHOR);
+
         if (banner.name() != null && !banner.name().isBlank()) {
             Options.Builder builder = new Options.Builder();
+
             if (this.config.ICON_TOOLTIP_CONTENT != null) {
                 builder.tooltipContent(this.config.ICON_TOOLTIP_CONTENT.replace("<name>", banner.name()))
                         .tooltipPane(this.config.ICON_TOOLTIP_PANE)
@@ -99,6 +102,7 @@ public class BannersLayer extends WorldLayer {
                         .tooltipSticky(this.config.ICON_TOOLTIP_STICKY)
                         .tooltipOpacity(this.config.ICON_TOOLTIP_OPACITY);
             }
+
             if (this.config.ICON_POPUP_CONTENT != null) {
                 builder.popupContent(this.config.ICON_POPUP_CONTENT.replace("<name>", banner.name()))
                         .popupPane(this.config.ICON_POPUP_PANE)
@@ -116,10 +120,13 @@ public class BannersLayer extends WorldLayer {
                         .popupShouldCloseOnEscapeKey(this.config.ICON_POPUP_SHOULD_CLOSE_ON_ESCAPE_KEY)
                         .popupShouldCloseOnClick(this.config.ICON_POPUP_SHOULD_CLOSE_ON_CLICK);
             }
+
             icon.setOptions(builder.build());
         }
+
         this.markers.put(banner.pos(), icon);
         this.banners.put(banner.pos(), banner);
+
         if (saveData) {
             saveData();
         }
@@ -135,6 +142,7 @@ public class BannersLayer extends WorldLayer {
         if (!Files.exists(this.dataFile)) {
             return;
         }
+
         try (DataInputStream in = new DataInputStream(new GZIPInputStream(new FileInputStream(this.dataFile.toFile())))) {
             int size = in.readInt();
             for (int i = 0; i < size; i++) {
@@ -153,7 +161,6 @@ public class BannersLayer extends WorldLayer {
                 banner.save(out);
             }
             out.flush();
-        } catch (Throwable ignore) {
-        }
+        } catch (Throwable ignore) {}
     }
 }

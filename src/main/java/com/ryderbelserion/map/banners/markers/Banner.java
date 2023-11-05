@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.markers;
+package com.ryderbelserion.map.banners.markers;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,6 +30,7 @@ import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
 public record Banner(Position pos, Icon icon, String name) {
+
     public boolean isBanner(@NotNull World world) {
         return world.getBlockAt(pos().x(), pos().y(), pos().z()).getState() instanceof org.bukkit.block.Banner;
     }
