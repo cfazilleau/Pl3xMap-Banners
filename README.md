@@ -7,7 +7,7 @@
 </div>
 
 ## Downloads
-https://ci.crazycrew.us/view/ryderbelserion/job/Pl3xMap-Banners/
+https://jenkins.crazycrew.us/view/other/job/Pl3xMap-Banners/
 
 ## Installation
 
