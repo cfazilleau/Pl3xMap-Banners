@@ -1,7 +1,13 @@
 plugins {
     id("io.papermc.paperweight.userdev") version "1.5.9"
 
+    id("xyz.jpenilla.run-paper") version "2.2.3"
+
     `java-library`
+}
+
+base {
+    archivesName.set(rootProject.name)
 }
 
 repositories {
@@ -39,18 +45,39 @@ tasks {
         options.release.set(17)
     }
 
+    runServer {
+        jvmArgs("-Dnet.kyori.ansi.colorLevel=truecolor")
+
+        defaultCharacterEncoding = Charsets.UTF_8.name()
+
+        minecraftVersion(mcVersion)
+
+        downloadPlugins {
+            hangar("Chunky", "1.3.136")
+
+            modrinth("pl3xmap", providers.gradleProperty("pl3xmapVersion").get())
+
+            url("https://ci.lucko.me/job/spark/401/artifact/spark-bukkit/build/libs/spark-1.10.60-bukkit.jar")
+        }
+    }
+
     val jarsDir = File("$rootDir/jars")
 
     assemble {
-        if (jarsDir.exists()) jarsDir.delete()
+        doFirst {
+            delete(jarsDir)
 
-        jarsDir.mkdirs()
+            jarsDir.mkdirs()
+        }
 
         dependsOn(reobfJar)
-    }
 
-    reobfJar {
-        outputJar.set(file("$jarsDir/${rootProject.name}-${rootProject.version}.jar"))
+        doLast {
+            copy {
+                from(rootProject.layout.buildDirectory.files("libs/${rootProject.name}-${rootProject.version}.jar"))
+                into(jarsDir)
+            }
+        }
     }
 
     processResources {
