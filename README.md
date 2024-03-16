@@ -9,8 +9,10 @@
 ## Downloads
 https://jenkins.crazycrew.us/view/other/job/Pl3xMap-Banners/
 
-## Installation
+## Support
+https://discord.gg/badbones-s-live-chat-182615261403283459
 
+## Installation
 1) Place the jar inside your server's `plugins` folder
 2) Restart your server
 3) Edit the config(s) to your liking
