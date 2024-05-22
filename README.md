@@ -7,7 +7,7 @@
 </div>
 
 ## Downloads
-https://jenkins.crazycrew.us/view/other/job/Pl3xMap-Banners/
+https://github.com/ryderbelserion/Pl3xMap-Banners/releases/tag/v1.0
 
 ## Contact
   [![Join us on Discord](https://discord.com/api/guilds/182615261403283459/widget.png?style=banner2)](https://discord.gg/badbones-s-live-chat-182615261403283459)
