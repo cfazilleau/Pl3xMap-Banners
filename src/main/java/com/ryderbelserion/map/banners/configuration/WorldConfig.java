@@ -212,7 +212,7 @@ public class WorldConfig extends AbstractConfig {
     @Comment("""
             The particles to play when a banner is added to Pl3xMap.
             https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html""")
-    public Particle BANNER_ADD_PARTICLES = Particle.VILLAGER_HAPPY;
+    public Particle BANNER_ADD_PARTICLES = Particle.HAPPY_VILLAGER;
     @Key("banner.add.sound")
     @Comment("""
             The sound to play when a banner is added to Pl3xMap.

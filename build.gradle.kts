@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.paperweight.userdev") version "1.5.9"
+    id("io.papermc.paperweight.userdev") version "1.7.1"
 
     id("xyz.jpenilla.run-paper") version "2.2.3"
 
@@ -32,7 +32,7 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of("17"))
+    toolchain.languageVersion.set(JavaLanguageVersion.of("21"))
 }
 
 tasks {
@@ -42,7 +42,7 @@ tasks {
 
     compileJava {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
 
     runServer {
