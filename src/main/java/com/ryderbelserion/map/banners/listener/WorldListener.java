@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.listener;
+package com.ryderbelserion.map.banners.listener;
 
-import net.pl3x.map.banners.configuration.WorldConfig;
-import net.pl3x.map.banners.markers.BannersLayer;
-import net.pl3x.map.banners.markers.Icon;
+import com.ryderbelserion.map.banners.configuration.WorldConfig;
+import com.ryderbelserion.map.banners.markers.BannersLayer;
+import com.ryderbelserion.map.banners.markers.Icon;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.event.EventHandler;
 import net.pl3x.map.core.event.EventListener;
@@ -42,6 +42,7 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class WorldListener implements EventListener, Listener {
+
     public WorldListener() {
         Pl3xMap.api().getEventRegistry().register(this);
     }

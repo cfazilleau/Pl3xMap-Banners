@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners;
+package com.ryderbelserion.map.banners;
 
-import net.pl3x.map.banners.listener.BannerListener;
-import net.pl3x.map.banners.listener.PaperBannerListener;
-import net.pl3x.map.banners.listener.WorldListener;
-import net.pl3x.map.banners.markers.BannersLayer;
-import net.pl3x.map.banners.markers.Icon;
+import com.ryderbelserion.map.banners.listener.BannerListener;
+import com.ryderbelserion.map.banners.listener.WorldListener;
+import com.ryderbelserion.map.banners.markers.BannersLayer;
+import com.ryderbelserion.map.banners.markers.Icon;
+import com.ryderbelserion.map.banners.listener.PaperBannerListener;
 import net.pl3x.map.core.Pl3xMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,6 +43,7 @@ public final class Pl3xMapBanners extends JavaPlugin {
         Icon.saveGimpSrc();
 
         BannerListener bannerListener;
+
         try {
             Class.forName("io.papermc.paper.configuration.PaperConfigurations");
             bannerListener = new PaperBannerListener();
@@ -59,8 +60,7 @@ public final class Pl3xMapBanners extends JavaPlugin {
         Pl3xMap.api().getWorldRegistry().forEach(world -> {
             try {
                 world.getLayerRegistry().unregister(BannersLayer.KEY);
-            } catch (Throwable ignore) {
-            }
+            } catch (Throwable ignore) {}
         });
     }
 }

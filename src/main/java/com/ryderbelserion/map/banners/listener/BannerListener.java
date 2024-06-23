@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.listener;
+package com.ryderbelserion.map.banners.listener;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.ThreadLocalRandom;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
-import net.pl3x.map.banners.markers.Banner;
-import net.pl3x.map.banners.markers.BannersLayer;
-import net.pl3x.map.banners.markers.Icon;
-import net.pl3x.map.banners.markers.Position;
+import com.ryderbelserion.map.banners.markers.Banner;
+import com.ryderbelserion.map.banners.markers.BannersLayer;
+import com.ryderbelserion.map.banners.markers.Icon;
+import com.ryderbelserion.map.banners.markers.Position;
 import net.pl3x.map.core.Pl3xMap;
 import net.pl3x.map.core.world.World;
 import org.bukkit.Location;
@@ -38,8 +38,8 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.craftbukkit.v1_20_R1.block.CraftBlockEntityState;
-import org.bukkit.craftbukkit.v1_20_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_20_R3.block.CraftBlockEntityState;
+import org.bukkit.craftbukkit.v1_20_R3.util.CraftChatMessage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -55,6 +55,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BannerListener implements Listener {
+
     @EventHandler
     public void onClickBanner(@NotNull PlayerInteractEvent event) {
         Block block = event.getClickedBlock();

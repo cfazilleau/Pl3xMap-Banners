@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.pl3x.map.banners.configuration;
+package com.ryderbelserion.map.banners.configuration;
 
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Map;
 import libs.org.simpleyaml.configuration.ConfigurationSection;
-import net.pl3x.map.banners.Pl3xMapBanners;
+import com.ryderbelserion.map.banners.Pl3xMapBanners;
 import net.pl3x.map.core.configuration.AbstractConfig;
 import net.pl3x.map.core.markers.Point;
 import net.pl3x.map.core.markers.Vector;
@@ -39,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WorldConfig extends AbstractConfig {
+
     @Key("layer.label")
     @Comment("""
             Label for map layer""")
