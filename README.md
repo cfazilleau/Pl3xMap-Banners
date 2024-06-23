@@ -1,3 +1,5 @@
+### This project is no longer supported, please read below and use Pl3xMapExtras instead. this project only exists to add 1.21 support to the old Bukkit-compatible Pl3xMap-Banners project.
+
 > [!IMPORTANT]
 > This addon has been merged into one plugin! You can now find it here: https://github.com/ryderbelserion/Pl3xMapExtras
 ----
